@@ -78,10 +78,11 @@ public class GuiManager implements Listener {
     public void openChatGui(Player player) {
         PlayerData playerData = dataManager.getOrLoadPlayerData(player.getUniqueId());
         final var chatGui = new ChatGui(itemCache, configManager, playerData, player.getName());
-        player.openInventory(chatGui.getInventory());
+        player.getScheduler().runDelayed(plugin, scheduledTask ->
+              player.openInventory(chatGui.getInventory()), null, 1L
+        );
         soundManager.playGuiOpenSound(player);
     }
-
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInventoryClick(InventoryClickEvent event) {
@@ -100,7 +101,6 @@ public class GuiManager implements Listener {
                     if (error != null) {
                         plugin.getLogger().warning("Failed to set player mode for " + error);
                     }
-
                 });
             }, null, 1L);
 
@@ -115,5 +115,4 @@ public class GuiManager implements Listener {
             }, null, 1L);
         }
     }
-
 }

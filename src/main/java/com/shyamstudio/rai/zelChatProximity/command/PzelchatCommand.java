@@ -47,7 +47,7 @@ public class PzelchatCommand implements CommandExecutor, TabCompleter {
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if(args.length == 1) return List.of("reload", "debug");
+        if (args.length == 1) return List.of("reload", "debug");
         return List.of();
     }
 
@@ -57,13 +57,13 @@ public class PzelchatCommand implements CommandExecutor, TabCompleter {
 
     private void executeReload(final CommandSender sender) {
         CompletableFuture.runAsync(() -> {
-            try{
+            try {
                 configManager.loadConfig();
                 dataManager.loadData();
                 plugin.getSoundManager().loadSoundConfig();
                 plugin.getProximityModule().reload();
                 sender.sendMessage(configManager.getConfig().getString("messages.reload-success", "&8[&6ZelChat-Proximity&8] &aConfiguration reloaded successfully!").replace("&", "§"));
-            }catch(Exception ex){
+            } catch(Exception ex) {
                 plugin.getLogger().severe("An error occurred while reloading the plugin: " + ex);
                 sender.sendMessage("§cFailed to reload: " + ex.getMessage());
             }
@@ -73,7 +73,7 @@ public class PzelchatCommand implements CommandExecutor, TabCompleter {
     private void changeDebugLevel(final CommandSender sender){
         final var enable = plugin.getDebugMode();
 
-        if(enable){
+        if (enable) {
             plugin.setDebugMode(false);
             sender.sendMessage("§8[§6ZelChat-Proximity§8] §aDebugger has been disabled!");
             return;

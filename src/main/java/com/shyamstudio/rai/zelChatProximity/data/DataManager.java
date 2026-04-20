@@ -98,7 +98,7 @@ public class DataManager {
   }
 
   public PlayerData getOrLoadPlayerData(UUID playerId) {
-    return playerDataMap.computeIfAbsent(playerId, id -> new PlayerData(id, false));
+    return playerDataMap.computeIfAbsent(playerId, id -> new PlayerData(false));
   }
 
   public void setPlayerData(UUID playerId, PlayerData data) {

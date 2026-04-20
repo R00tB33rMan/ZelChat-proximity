@@ -23,18 +23,17 @@ public class ChatCommand implements CommandExecutor {
 
   @Override
   public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-    if (!(sender instanceof Player)) {
+    if (!(sender instanceof Player player)) {
       sender.sendMessage(configManager.getConfig().getString("messages.player-only", "&8[&6Chat&8] &cThis command can only be used by players.").replace("&", "§"));
       return true;
     }
 
-    Player player = (Player) sender;
     if (!player.hasPermission(USE_PERMISSION)) {
       player.sendMessage(configManager.getConfig().getString("messages.no-permission-command", "&8[&6Chat&8] &cInsufficient permissions to use this command.").replace("&", "§"));
       return true;
     }
 
-      guiManager.openChatGui(player);
+    guiManager.openChatGui(player);
 
     return true;
   }

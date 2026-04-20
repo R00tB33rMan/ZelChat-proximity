@@ -19,15 +19,13 @@ public class PlayerListener implements Listener {
 
   @EventHandler(priority = EventPriority.MONITOR)
   public void onPlayerJoin(PlayerJoinEvent event) {
-    CompletableFuture.runAsync(() -> {
-      dataManager.getOrLoadPlayerData(event.getPlayer().getUniqueId());
-    });
+    CompletableFuture.runAsync(() -> 
+          dataManager.getOrLoadPlayerData(event.getPlayer().getUniqueId())
+    );
   }
 
   @EventHandler(priority = EventPriority.MONITOR)
   public void onPlayerQuit(PlayerQuitEvent event) {
-    CompletableFuture.runAsync(() -> {
-      dataManager.markDirty();
-    });
+    CompletableFuture.runAsync(dataManager::markDirty);
   }
 }
